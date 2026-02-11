@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Item Request System - Documentation</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({ startOnLoad: true });</script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
+        
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: #f8fafc;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+            color: #1e293b;
+        }
+
+        .slide {
+            background: white;
+            width: 100%;
+            max-width: 1100px;
+            aspect-ratio: 16/9;
+            padding: 50px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        h1 { font-size: 2em; font-weight: 800; color: #0f172a; margin-bottom: 20px; }
+        h2 { font-size: 1.3em; font-weight: 700; color: #ec4899; margin-bottom: 12px; }
+        h3 { font-size: 1em; font-weight: 600; color: #64748b; margin-bottom: 8px; }
+
+        .content-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; flex-grow: 1; }
+        .full-center { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; flex-grow: 1; }
+
+        ul, ol { padding-left: 20px; line-height: 1.8; font-size: 0.95em; }
+        li { margin-bottom: 6px; }
+
+        table { width: 100%; border-collapse: collapse; font-size: 0.9em; }
+        th, td { padding: 12px 8px; text-align: left; border-bottom: 1px solid #e2e8f0; }
+        th { font-weight: 700; color: #64748b; font-size: 0.75em; text-transform: uppercase; letter-spacing: 0.5px; }
+
+        .badge { display: inline-block; padding: 4px 10px; border-radius: 6px; font-size: 0.75em; font-weight: 700; }
+        .badge-pink { background: #fce7f3; color: #be185d; }
+        .badge-green { background: #dcfce7; color: #166534; }
+        .badge-amber { background: #fef3c7; color: #92400e; }
+
+        .mermaid-container { display: flex; justify-content: center; align-items: center; flex-grow: 1; }
+
+        .footer { position: absolute; bottom: 20px; right: 30px; font-size: 0.75em; color: #94a3b8; font-weight: 600; }
+
+        .step-box { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 16px; margin-bottom: 12px; }
+        .step-num { display: inline-block; width: 24px; height: 24px; background: #ec4899; color: white; border-radius: 50%; text-align: center; font-weight: 700; font-size: 0.8em; line-height: 24px; margin-right: 10px; }
+
+        @media print {
+            body { background: white; padding: 0; }
+            .slide { box-shadow: none; page-break-after: always; max-width: none; width: 100vw; height: 100vh; aspect-ratio: auto; border-radius: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- SLIDE 1: Title -->
+    <div class="slide">
+        <div class="full-center">
+            <div style="margin-bottom: 30px;">
+                <span class="badge badge-pink" style="font-size: 0.9em; padding: 8px 16px;">LA ROSE NOIRE</span>
+            </div>
+            <h1 style="font-size: 3em; margin-bottom: 10px;">Item Request System</h1>
+            <p style="font-size: 1.3em; color: #64748b; margin-bottom: 30px;">Process Flow & User Guide</p>
+            <div style="width: 80px; height: 4px; background: linear-gradient(90deg, #ec4899, #f472b6); border-radius: 2px;"></div>
+        </div>
+        <div class="footer">Slide 1 of 6</div>
+    </div>
+
+    <!-- SLIDE 2: Process Flow -->
+    <div class="slide">
+        <h1>System Process Flow</h1>
+        <div class="mermaid-container">
+            <div class="mermaid">
+flowchart LR
+    A[Login] --> B{User Role}
+    
+    B -->|Staff| C[Dashboard]
+    C --> D[Create Request]
+    D --> E[Add Items]
+    E --> F[Submit]
+    F --> G([Status: Pending])
+    
+    B -->|Approver| H[Dashboard]
+    H --> I{Review Request}
+    I -->|Approve| J([Status: Approved])
+    I -->|Reject| K([Status: Rejected])
+    K -.->|Undo| G
+    
+    G --> H
+            </div>
+        </div>
+        <div style="display: flex; gap: 20px; justify-content: center; margin-top: 20px;">
+            <div><span class="badge badge-pink">Staff</span> Creates Requests</div>
+            <div><span class="badge badge-green">Approver</span> Manager/Supervisor</div>
+            <div><span class="badge badge-amber">Pending</span> Awaiting Approval</div>
+        </div>
+        <div class="footer">Slide 2 of 6</div>
+    </div>
+
+    <!-- SLIDE 3: Roles & Access -->
+    <div class="slide">
+        <h1>User Roles & Access</h1>
+        <div class="content-grid">
+            <div>
+                <h2>Staff (All Employees)</h2>
+                <ul>
+                    <li><strong>Login:</strong> Use company credentials</li>
+                    <li><strong>Dashboard:</strong> View own department's requests</li>
+                    <li><strong>Create Request:</strong> Submit new item requests</li>
+                    <li><strong>View Details:</strong> Check status of submissions</li>
+                    <li><strong>Print:</strong> Export individual requests to PDF</li>
+                </ul>
+                
+                <h2 style="margin-top: 30px;">Department Filter</h2>
+                <p style="font-size: 0.9em; color: #64748b;">
+                    Users only see requests from their own department. This is automatic — no manual selection needed.
+                </p>
+            </div>
+            <div>
+                <h2>Approver (Manager / Supervisor)</h2>
+                <ul>
+                    <li><strong>Same access as Staff</strong>, plus:</li>
+                    <li><strong>Approve:</strong> Accept pending requests</li>
+                    <li><strong>Reject:</strong> Decline with a reason</li>
+                    <li><strong>Undo:</strong> Revert rejected requests to pending</li>
+                </ul>
+                
+                <div style="background: #fef3c7; border-radius: 12px; padding: 16px; margin-top: 20px;">
+                    <h3 style="color: #92400e;">⚠️ Approval Rules</h3>
+                    <ul style="font-size: 0.85em; color: #78350f;">
+                        <li>Must have "Manager" or "Supervisor" in job title</li>
+                        <li>Must be registered in Approvers table</li>
+                        <li>Can only approve requests from own department</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer">Slide 3 of 6</div>
+    </div>
+
+    <!-- SLIDE 4: How to Create a Request -->
+    <div class="slide">
+        <h1>How To: Create a Request</h1>
+        <div class="content-grid">
+            <div>
+                <div class="step-box">
+                    <span class="step-num">1</span>
+                    <strong>Click "New Request"</strong> on the Dashboard
+                </div>
+                <div class="step-box">
+                    <span class="step-num">2</span>
+                    <strong>Employee Info</strong> is auto-filled (Name, ID, Dept)
+                </div>
+                <div class="step-box">
+                    <span class="step-num">3</span>
+                    <strong>Select Area</strong> (P1, P2, P3, or P4)
+                </div>
+                <div class="step-box">
+                    <span class="step-num">4</span>
+                    <strong>Set Date & Time Needed</strong>
+                </div>
+            </div>
+            <div>
+                <div class="step-box">
+                    <span class="step-num">5</span>
+                    <strong>Add Items:</strong> Click "Add Item", select category, search item, enter quantity
+                </div>
+                <div class="step-box">
+                    <span class="step-num">6</span>
+                    <strong>Salary Deduction:</strong> If items have a price (e.g., Uniforms), check the authorization box
+                </div>
+                <div class="step-box">
+                    <span class="step-num">7</span>
+                    <strong>Submit:</strong> Click "Create Request" — status becomes Pending
+                </div>
+                <div style="background: #dcfce7; border-radius: 12px; padding: 16px; margin-top: 10px;">
+                    <p style="font-size: 0.85em; color: #166534;">
+                        ✓ Request is automatically routed to your department's approver
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="footer">Slide 4 of 6</div>
+    </div>
+
+    <!-- SLIDE 5: Approver Actions & Printing -->
+    <div class="slide">
+        <h1>Approver Actions & Printing</h1>
+        <div class="content-grid">
+            <div>
+                <h2>Approving / Rejecting</h2>
+                <table>
+                    <tr>
+                        <th>Action</th>
+                        <th>How</th>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-green">Approve</span></td>
+                        <td>Click ✓ button → Add remarks (optional) → Confirm</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge" style="background:#fee2e2;color:#991b1b;">Reject</span></td>
+                        <td>Click ✗ button → Enter reason → Confirm</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-amber">Undo</span></td>
+                        <td>For rejected requests only → Reverts to Pending</td>
+                    </tr>
+                </table>
+                <p style="font-size: 0.8em; color: #64748b; margin-top: 12px;">
+                    Note: Approved requests cannot be undone.
+                </p>
+            </div>
+            <div>
+                <h2>Exporting / Printing</h2>
+                <ul>
+                    <li><strong>Single Request:</strong> Open View page → Click "Print / Save PDF"</li>
+                    <li><strong>Batch Export:</strong> From Dashboard, apply filters → Click PDF icon</li>
+                </ul>
+                
+                <h2 style="margin-top: 30px;">Dashboard Filters</h2>
+                <ul>
+                    <li>Request ID</li>
+                    <li>Requestor Name</li>
+                    <li>Date Filed / Date Needed</li>
+                    <li>Assigned Area (P1–P4)</li>
+                    <li>Status (Pending, Approved, Rejected)</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer">Slide 5 of 6</div>
+    </div>
+
+    <!-- SLIDE 6: Database Usage -->
+    <div class="slide">
+        <h1>Database Architecture</h1>
+        <div class="content-grid">
+            <div>
+                <h2>1. Requests Table</h2>
+                <p style="font-size: 0.85em; color: #64748b; margin-bottom: 8px;">Stores the main header information for each requisition.</p>
+                <ul style="font-size: 0.8em; columns: 2;">
+                    <li><strong>request_id</strong> (PK)</li>
+                    <li><strong>requestor_name</strong></li>
+                    <li><strong>department</strong></li>
+                    <li><strong>date_needed</strong></li>
+                    <li><strong>status</strong> (Pending/Etc)</li>
+                    <li><strong>action_by</strong> (Approver)</li>
+                    <li><strong>action_date</strong></li>
+                </ul>
+
+                <h2 style="margin-top: 20px;">2. ItemMaster Table</h2>
+                <p style="font-size: 0.85em; color: #64748b; margin-bottom: 8px;">Source of truth for all available items.</p>
+                <ul style="font-size: 0.8em; columns: 2;">
+                    <li><strong>id</strong> (PK)</li>
+                    <li><strong>item_code</strong></li>
+                    <li><strong>item_name</strong></li>
+                    <li><strong>category</strong></li>
+                    <li><strong>price</strong></li>
+                    <li><strong>approver</strong> (Dept)</li>
+                </ul>
+            </div>
+            <div>
+                <h2>3. RequestItems Table</h2>
+                <p style="font-size: 0.85em; color: #64748b; margin-bottom: 8px;">Links specific items to a request header.</p>
+                <ul style="font-size: 0.8em;">
+                    <li><strong>item_id</strong> (PK)</li>
+                    <li><strong>request_id</strong> (FK -> Requests)</li>
+                    <li><strong>item_code</strong></li>
+                    <li><strong>quantity</strong></li>
+                    <li><strong>uom</strong> (Unit of Measure)</li>
+                </ul>
+
+                <div style="background: #f0f9ff; border-radius: 12px; padding: 16px; margin-top: 20px; border: 1px solid #bae6fd;">
+                    <h3 style="color: #0369a1;">schema_relationship</h3>
+                    <p style="font-size: 0.85em; color: #0c4a6e;">
+                        <strong>One-to-Many:</strong> A single entry in <code>Requests</code> can have multiple entries in <code>RequestItems</code>. 
+                        The application joins these tables to display the full details of a requisition ticket.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="footer">Slide 6 of 6</div>
+    </div>
+
+</body>
+</html>

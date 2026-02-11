@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Item Request System - Project Report</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%);
+            padding: 40px 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #f472b6 0%, #ec4899 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+        }
+        
+        .section h2 {
+            color: #ec4899;
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #fce4ec;
+        }
+        
+        p, li {
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .feature-box {
+            background: #fffafa;
+            border: 1px solid #ffe4e6;
+            padding: 20px;
+            border-radius: 10px;
+            transition: transform 0.2s;
+        }
+
+        .feature-box:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .feature-box h4 {
+            color: #be185d;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        
+        .tech-badge {
+            background: #f472b6;
+            color: white;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+
+        /* SVG FLOWCHART */
+        .flowchart-svg {
+            width: 100%;
+            max-width: 900px;
+            margin: 20px auto;
+            display: block;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .footer {
+            background: #f8f9fa;
+            padding: 20px 40px;
+            text-align: center;
+            color: #666;
+            font-size: 0.9em;
+            border-top: 1px solid #e2e8f0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📋 Item Request System</h1>
+            <p>System Implementation Report</p>
+        </div>
+        
+        <div class="content">
+            <div class="section">
+                <h2>🎯 Executive Summary</h2>
+                <p>
+                    The <strong>Item Request System</strong> is a specialized enterprise web application engineered to digitize and optimize the supply requisition process at La Rose Noire Philippines. By transitioning from a manual, paper-based workflow to this centralized digital platform, the organization ensures <strong>accountability</strong>, <strong>inventory control</strong>, and <strong>operational efficiency</strong>.
+                </p>
+                <p>
+                    Central to the system is a sophisticated logic engine that enforces <strong>Uniform & PPE Allowances</strong> based on employee department and hierarchy, ensuring compliance with company allocation policies (daily vs. deployment limits) before a request is even submitted.
+                </p>
+            </div>
+            
+            <div class="section">
+                <h2>🔄 System Logic Diagram</h2>
+                <p>The following technical flowchart illustrates the request lifecycle, highlighting the validation logic and decision nodes implemented in the application.</p>
+                
+                <svg class="flowchart-svg" viewBox="0 0 800 1100" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                            <polygon points="0 0, 10 3, 0 6" fill="#1e293b" />
+                        </marker>
+                    </defs>
+                    
+                    <!-- START -->
+                    <rect x="300" y="10" width="200" height="50" rx="25" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
+                    <text x="400" y="40" text-anchor="middle" font-family="Arial" font-size="14" font-weight="bold" fill="#065f46">START: User Login</text>
+                    
+                    <!-- Arrow -->
+                    <line x1="400" y1="60" x2="400" y2="90" stroke="#1e293b" stroke-width="3" marker-end="url(#arrowhead)"/>
+                    
+                    <!-- Dashboard -->
+                    <rect x="280" y="90" width="240" height="50" rx="5" fill="#fff" stroke="#2563eb" stroke-width="2"/>
+                    <text x="400" y="115" text-anchor="middle" font-family="Arial" font-size="13" font-weight="600" fill="#1e3a8a">Load Dashboard</text>
+                    <text x="400" y="130" text-anchor="middle" font-family="Arial" font-size="13" font-weight="600" fill="#1e3a8a">Check Permissions</text>
+                    
+                    <!-- Arrow -->
+                    <line x1="400" y1="140" x2="400" y2="180" stroke="#1e293b" stroke-width="3" marker-end="url(#arrowhead)"/>
+                    
+                    <!-- Decision: Create Request? -->
+                    <polygon points="400,180 480,220 400,260 320,220" fill="#fffbeb" stroke="#d97706" stroke-width="2"/>
+                    <text x="400" y="217" text-anchor="middle" font-family="Arial" font-size="12" font-weight="bold" fill="#92400e">Request</text>
+                    <text x="400" y="232" text-anchor="middle" font-family="Arial" font-size="12" font-weight="bold" fill="#92400e">Created?</text>
+                    
+                    <!-- YES Branch -->
+                    <line x1="400" y1="260" x2="400" y2="300" stroke="#1e293b" stroke-width="3" marker-end="url(#arrowhead)"/>
+                    <text x="420" y="285" font-family="Arial" font-size="11" font-weight="bold" fill="#059669">YES</text>
+                    
+                    <!-- Input Area & Date -->
+                    <rect x="300" y="300" width="200" height="50" rx="5" fill="#fff" stroke="#2563eb" stroke-width="2"/>
+                    <text x="400" y="330" text-anchor="middle" font-family="Arial" font-size="13" font-weight="600" fill="#1e3a8a">Input: Area & Date</text>
+                    
+                    <!-- Arrow -->
+                    <line x1="400" y1="350" x2="400" y2="380" stroke="#1e293b" stroke-width="3" marker-end="url(#arrowhead)"/>
+                    
+                    <!-- Select Items -->
+                    <rect x="280" y="380" width="240" height="50" rx="5" fill="#fff" stroke="#2563eb" stroke-width="2"/>
+                    <text x="400" y="410" text-anchor="middle" font-family="Arial" font-size="13" font-weight="600" fill="#1e3a8a">Select Items & Quantity</text>
+                    
+                    <!-- Arrow -->
+                    <line x1="400" y1="430" x2="400" y2="470" stroke="#1e293b" stroke-width="3" marker-end="url(#arrowhead)"/>
+                    
+                    <!-- Decision: Allowance Valid? -->
+                    <polygon points="400,470 480,510 400,550 320,510" fill="#fffbeb" stroke="#d97706" stroke-width="2"/>
+                    <text x="400" y="507" text-anchor="middle" font-family="Arial" font-size="12" font-weight="bold" fill="#92400e">Allowance</text>
+                    <text x="400" y="522" text-anchor="middle" font-family="Arial" font-size="12" font-weight="bold" fill="#92400e">Valid?</text>
+                    
+                    <!-- NO Branch (Left) - Error -->
+                    <line x1="320" y1="510" x2="200" y2="510" stroke="#1e293b" stroke-width="3"/>
+                    <line x1="200" y1="510" x2="200" y2="600" stroke="#1e293b" stroke-width="3" marker-end="url(#arrowhead)"/>
+                    <text x="210" y="505" font-family="Arial" font-size="11" font-weight="bold" fill="#ef4444">NO</text>
+                    
+                    <rect x="100" y="600" width="200" height="50" rx="5" fill="#fef2f2" stroke="#ef4444" stroke-width="2"/>
+                    <text x="200" y="620" text-anchor="middle" font-family="Arial" font-size="13" font-weight="600" fill="#b91c1c">Show Error</text>
+                    <text x="200" y="640" text-anchor="middle" font-family="Arial" font-size="13" font-weight="600" fill="#b91c1c">Block Submit</text>
+                    
+                    <!-- YES Branch (Continue Down) -->
+                    <line x1="400" y1="550" x2="400" y2="610" stroke="#1e293b" stroke-width="3" marker-end="url(#arrowhead)"/>
+                    <text x="420" y="580" font-family="Arial" font-size="11" font-weight="bold" fill="#059669">YES</text>
+                    
+                    <!-- Submit Request -->
+                    <rect x="300" y="610" width="200" height="50" rx="5" fill="#fff" stroke="#2563eb" stroke-width="2"/>
+                    <text x="400" y="640" text-anchor="middle" font-family="Arial" font-size="13" font-weight="600" fill="#1e3a8a">Submit Request</text>
+                    
+                    <!-- Arrow -->
+                    <line x1="400" y1="660" x2="400" y2="690" stroke="#1e293b" stroke-width="3" marker-end="url(#arrowhead)"/>
+                    
+                    <!-- Approver View -->
+                    <rect x="280" y="690" width="240" height="50" rx="5" fill="#fff" stroke="#2563eb" stroke-width="2"/>
+                    <text x="400" y="720" text-anchor="middle" font-family="Arial" font-size="13" font-weight="600" fill="#1e3a8a">Role: Approver Review</text>
+                    
+                    <!-- Arrow -->
+                    <line x1="400" y1="740" x2="400" y2="780" stroke="#1e293b" stroke-width="3" marker-end="url(#arrowhead)"/>
+                    
+                    <!-- Decision: Approve? -->
+                    <polygon points="400,780 480,820 400,860 320,820" fill="#fffbeb" stroke="#d97706" stroke-width="2"/>
+                    <text x="400" y="817" text-anchor="middle" font-family="Arial" font-size="12" font-weight="bold" fill="#92400e">Approve</text>
+                    <text x="400" y="832" text-anchor="middle" font-family="Arial" font-size="12" font-weight="bold" fill="#92400e">Request?</text>
+                    
+                    <!-- NO Branch (Left) - Rejected -->
+                    <line x1="320" y1="820" x2="200" y2="820" stroke="#1e293b" stroke-width="3"/>
+                    <line x1="200" y1="820" x2="200" y2="920" stroke="#1e293b" stroke-width="3" marker-end="url(#arrowhead)"/>
+                    <text x="210" y="815" font-family="Arial" font-size="11" font-weight="bold" fill="#ef4444">NO</text>
+                    
+                    <rect x="100" y="920" width="200" height="50" rx="25" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/>
+                    <text x="200" y="950" text-anchor="middle" font-family="Arial" font-size="14" font-weight="bold" fill="#991b1b">END: Rejected</text>
+                    
+                    <!-- YES Branch (Right) - Approved -->
+                    <line x1="480" y1="820" x2="600" y2="820" stroke="#1e293b" stroke-width="3"/>
+                    <line x1="600" y1="820" x2="600" y2="920" stroke="#1e293b" stroke-width="3" marker-end="url(#arrowhead)"/>
+                    <text x="530" y="815" font-family="Arial" font-size="11" font-weight="bold" fill="#059669">YES</text>
+                    
+                    <rect x="500" y="920" width="200" height="50" rx="25" fill="#dcfce7" stroke="#059669" stroke-width="2"/>
+                    <text x="600" y="950" text-anchor="middle" font-family="Arial" font-size="14" font-weight="bold" fill="#065f46">END: Approved</text>
+                </svg>
+            </div>
+
+            <div class="section">
+                <h2>⚙️ Technical Analysis & Key Functionalities</h2>
+                <div class="feature-grid">
+                    <div class="feature-box">
+                        <h4>1. Intelligent Allowance Engine</h4>
+                        <p>The system parses a complex matrix of allowance rules (CSV/Database) to dynamically validate requests. It distinguishes between <strong>Daily Consumables</strong> (Safety items) and <strong>Deployment Assets</strong> (Uniforms), preventing over-requisition based on department/rank entitlement.</p>
+                    </div>
+                    
+                    <div class="feature-box">
+                        <h4>2. Dynamic Approval Routing</h4>
+                        <p>Requests are automatically routed to the correct approver based on the requestor's department. The system recognizes primary and secondary approvers, adhering to the organization's escalating hierarchy (Staff → Supervisor → Manager).</p>
+                    </div>
+
+                    <div class="feature-box">
+                        <h4>3. Role-Based Access Control (RBAC)</h4>
+                        <p>Strict security protocols differentiate user experiences:</p>
+                        <ul>
+                            <li><strong>Staff:</strong> Can only initiate requests and view their own history. Permissions are validated via session tokens.</li>
+                            <li><strong>Approvers:</strong> Granted specific action capabilities (Approve/Reject) only for requests matching their managed department.</li>
+                            <li><strong>Admin:</strong> Full CRUD access to the Item Master and global view references.</li>
+                        </ul>
+                    </div>
+
+                    <div class="feature-box">
+                        <h4>4. Admin Item Management</h4>
+                        <p>A dedicated portal allows Admins to maintain the <strong>Item Master List</strong>. Features include category segmentation, pricing updates, and UOM configuration, ensuring the catalog remains synchronized with actual inventory.</p>
+                    </div>
+                    
+                    <div class="feature-box">
+                        <h4>5. Reporting & PDF Generation</h4>
+                        <p>Utilizing a print-optimized CSS engine, the system generates standardized PDF documents for individual requests or batch summaries, facilitating offline verification and audit trails.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>🛠️ Technology Architecture</h2>
+                <p>The solution is built on a robust, industry-standard stack ensuring reliability and maintainability:</p>
+                <div class="tech-stack">
+                    <span class="tech-badge">Backend: PHP 7.4+</span>
+                    <span class="tech-badge">Database: SQL Server (MSSQL)</span>
+                    <span class="tech-badge">Driver: PDO_SQLSRV</span>
+                    <span class="tech-badge">Frontend: JavaScript (ES6)</span>
+                    <span class="tech-badge">Styling: Tailwind CSS</span>
+                    <span class="tech-badge">Icons: Phosphor Icons</span>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>📝 Pending Updates & Future Roadmap</h2>
+                <p>Minor tweaks and enhancements identified for future iterations:</p>
+                <ul>
+                    <li><strong>Email Notifications:</strong> Integration with SMTP server to alert approvers.</li>
+                    <li><strong>Analytics Dashboard:</strong> Visual graphs showing consumption trends.</li>
+                    <li><strong>Warehouse Integration:</strong> Direct link to inventory deduction.</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>La Rose Noire Philippines - Item Request System Analysis</p>
+        </div>
+    </div>
+</body>
+</html>
