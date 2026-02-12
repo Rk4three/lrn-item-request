@@ -141,38 +141,38 @@ INSERT INTO ItemMaster (
     )
 VALUES (
         'cleaning chemical',
-        'CM.AS.03.0059',
-        'Air Freshener Canister',
-        'Facilities - Housekeeping',
+        'ITEM-001',
+        'Generic Cleaner',
+        'Facilities',
         'pc',
-        'Facilities - Housekeeping',
+        'Facilities',
         0
     ),
     (
         'cleaning chemical',
-        'CM.AS.03.0006',
-        'Diswashing Liquid',
-        'Facilities - Housekeeping',
+        'ITEM-002',
+        'Generic Liquid',
+        'Facilities',
         'gallon',
-        'Facilities - Housekeeping',
+        'Facilities',
         0
     ),
     (
         'uniform & PPEs',
-        'CM.CU.07.0001',
-        'Boots Black, rubber',
-        'Facilities - Housekeeping',
+        'ITEM-003',
+        'Generic Boots',
+        'Facilities',
         'pair',
-        'Facilities - Housekeeping',
+        'Facilities',
         0
     ),
     (
         'uniform & PPEs',
-        'CM.CU.01.0031',
-        'Uniform, Black Pants Male -S',
-        'Facilities - Laundry',
+        'ITEM-004',
+        'Generic Uniform',
+        'Facilities',
         'pc',
-        'Facilities - Laundry',
+        'Facilities',
         0
     );
 -- 5. Approvers Table
@@ -183,12 +183,19 @@ CREATE TABLE Approvers (
     approver_name_2 VARCHAR(100)
 );
 INSERT INTO Approvers (department, approver_name_1, approver_name_2)
-VALUES ('Admin', 'Arnel Elizalde', 'Carol Tiamzon'),
-    ('IT', 'Rudnan Chavez', 'Hyacinth Faye Mendez'),
+VALUES ('Admin', 'Super Approver', 'Admin Approver 2'),
+    ('IT', 'Admin User', 'IT Approver 2'),
     (
         'Production 1',
-        'Maria Cecelia Medrano',
-        'Regina Calonzo'
+        'Prod Approver 1',
+        'Prod Approver 2'
+    ),
+    ('Facilities', 'Laundry Manager', NULL),
+    ('Facilities - Laundry', 'Laundry Manager', NULL),
+    (
+        'Facilities - Housekeeping',
+        'Laundry Manager',
+        NULL
     );
 -- 6. Admins Table (ItemRequest_Admins)
 CREATE TABLE ItemRequest_Admins (

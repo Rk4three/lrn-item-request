@@ -219,6 +219,25 @@ function validateApprovers() {
       }
   }
 
+  // Validate Sizes
+  const itemRows = document.querySelectorAll('div[id^="item-row-"]');
+  for (const row of itemRows) {
+      const index = row.id.split('-')[2];
+      const sizeInput = document.getElementById(`size-${index}`);
+      const itemNameInput = document.getElementById(`itemName-${index}`);
+      
+      if (sizeInput && itemNameInput) {
+          const itemName = itemNameInput.value.trim();
+          const size = sizeInput.value.trim();
+          
+          // If item is selected (name not empty) and size input is visible/enabled but empty
+          if (itemName && !sizeInput.disabled && !size) {
+              showErrorModal("Missing Size", `Please select or enter a size for item: ${itemName}`);
+              return false;
+          }
+      }
+  }
+
   return true;
 }
 
@@ -573,11 +592,16 @@ function fillDetails(inputElement, index) {
       
       // Check if this is a one-size item (N/A size)
       if (sizeKeys.length === 1 && sizeKeys[0] === 'N/A') {
-          // One-size item - fill code directly
+          // One-size item detected (could be Shirt, Bonnet, etc.)
+          // Fill code for generic item
           document.getElementById(`code-${index}`).value = sizes['N/A'];
-          document.getElementById(`size-${index}`).value = "N/A";
-          document.getElementById(`size-${index}`).placeholder = "N/A (One Size)";
-          document.getElementById(`size-${index}`).disabled = true;
+          
+          // User requested: "size is N/A by default, it should be empty by default"
+          // We enable it so they can type a size (e.g. "Large") if needed
+          const sizeInput = document.getElementById(`size-${index}`);
+          sizeInput.value = ""; 
+          sizeInput.placeholder = "Enter Size";
+          sizeInput.disabled = false;
       } else {
           // Item has multiple sizes - clear code until size is selected
           document.getElementById(`code-${index}`).value = "";

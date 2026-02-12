@@ -327,7 +327,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     ':item_code' => $item['item_code'],
                     ':sub_group' => $item['sub_group'],
                     ':uom' => $item['uom'],
-                    ':size' => $item['size'],
+                    ':size' => $item['size'] ?? null,
                     ':quantity' => $quantity,
                     ':approver' => $dept, // Force Approver = Requestor Department
                     ':items_needed' => $item['items_needed'] ?? null

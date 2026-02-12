@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 
 services:
   web:
@@ -13,20 +13,26 @@ services:
       - DB_NAME=item_request_db
       - DB_USER=postgres
       - DB_PASS=password
-    volumes:
-      - .:/var/www/html
+
     depends_on:
-      - db
+      db:
+        condition: service_healthy
 
   db:
-    image: postgres:15-alpine
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.db
     environment:
       POSTGRES_DB: item_request_db
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ./docker/init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - "5432:5432"
 
