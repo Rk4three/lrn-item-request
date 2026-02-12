@@ -227,7 +227,7 @@ $statusConfig = [
                             <div class="absolute inset-0 flex items-center justify-center text-primary font-bold">
                                 <?php echo substr($req['requestor_name'], 0, 1); ?>
                             </div>
-                            <img src="http://10.2.0.8/lrnph/emp_photos/<?php echo $requestorPhotoId; ?>.jpg"
+                            <img src="/assets/emp_photos/<?php echo $requestorPhotoId; ?>.jpg"
                                 class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-300"
                                 onload="this.classList.remove('opacity-0')" onerror="this.style.display='none'" alt="User">
                         </div>

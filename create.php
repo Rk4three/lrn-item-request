@@ -228,7 +228,7 @@ $approverDepartments = [];
                             class="absolute inset-0 bg-gradient-to-br from-pink-400 to-purple-400 flex items-center justify-center text-white font-black text-lg">
                             <?php echo substr($user_name, 0, 1); ?>
                         </div>
-                        <img id="userProfileImg" src="http://10.2.0.8/lrnph/emp_photos/<?php echo $photo_id; ?>.jpg"
+                        <img id="userProfileImg" src="/assets/emp_photos/<?php echo $photo_id; ?>.jpg"
                             class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-300"
                             onload="handleProfileImageLoad(this)"
                             onerror="handleImgError(this, '<?php echo $photo_id; ?>')" alt="User">
@@ -473,7 +473,7 @@ $approverDepartments = [];
 
         function handleImgError(img, empId) {
             const currentSrc = img.src.toLowerCase();
-            const baseUrl = 'http://10.2.0.8/lrnph/emp_photos/' + empId;
+            const baseUrl = '/assets/emp_photos/' + empId;
 
             // Try extensions in order: jpg -> jpeg -> png -> hide
             if (currentSrc.endsWith('.jpg')) {

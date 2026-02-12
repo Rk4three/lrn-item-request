@@ -2,10 +2,10 @@
 // includes/db.php
 
 // Check if running in Docker/Render environment
-$host = getenv('DB_HOST') ?: '10.2.0.9'; // Fallback to old IP if env not set (or use localhost)
-$dbname = getenv('DB_NAME') ?: 'LRNPH_OJT';
-$user = getenv('DB_USER') ?: 'sa';
-$pass = getenv('DB_PASS') ?: 'S3rverDB02lrn25';
+$host = getenv('DB_HOST') ?: 'localhost';
+$dbname = getenv('DB_NAME') ?: 'item_request_db';
+$user = getenv('DB_USER') ?: 'postgres';
+$pass = getenv('DB_PASS') ?: 'password';
 $port = getenv('DB_PORT') ?: '5432';
 
 try {
@@ -34,6 +34,12 @@ try {
 
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+
+    // Set Schema to isolate tables
+    // This allows using generic table names (Requests, Users) without conflict
+    $schema = getenv('DB_SCHEMA') ?: 'item_request';
+    $conn->exec("CREATE SCHEMA IF NOT EXISTS \"$schema\"");
+    $conn->exec("SET search_path TO \"$schema\"");
 
 } catch (PDOException $e) {
     // If connection fails, show error (for debugging) or friendly message
