@@ -1,6 +1,9 @@
 -- docker/init.sql
+-- 0. Schema Setup
+CREATE SCHEMA IF NOT EXISTS item_request;
+SET search_path TO item_request;
 -- 1. Users Table (Mock for Auth)
-CREATE TABLE users (
+CREATE TABLE IF NOT EXISTS users (
     id SERIAL PRIMARY KEY,
     username VARCHAR(100) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
@@ -78,13 +81,11 @@ VALUES -- Admin User
         '4',
         'admin'
     );
--- Note: 'password' hash is '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi' (which is 'password') - wait, standard bcrypt for 'password' is usually different but let's assume valid hash or use plain text temporarily if code supports it (code supports legacy md5/sha1/plain too, but verify calls password_verify first). I'll generate a valid bcrypt hash for 'password123'.
--- Hash for 'password123': $2y$10$r/w/o/w/o/w/o/w/o/w/oeK.eK.eK.eK.eK.eK.eK.eK.eK.eK.eK (just kidding, I'll use a known hash or let the user reset).
--- Actually the code checkLegacyPassword includes plain text check: if ($inputPassword === $storedHash). So I can just store 'password123' and it will work!
+-- Update passwords for easy testing
 UPDATE users
 SET password = 'password123';
 -- 2. Requests Table
-CREATE TABLE Requests (
+CREATE TABLE IF NOT EXISTS Requests (
     request_id SERIAL PRIMARY KEY,
     date_filed TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     date_needed TIMESTAMP,
@@ -104,7 +105,7 @@ CREATE TABLE Requests (
     is_company_issued INT DEFAULT 0
 );
 -- 3. RequestItems Table
-CREATE TABLE RequestItems (
+CREATE TABLE IF NOT EXISTS RequestItems (
     item_id SERIAL PRIMARY KEY,
     request_id INT REFERENCES Requests(request_id) ON DELETE CASCADE,
     category VARCHAR(50),
@@ -118,7 +119,7 @@ CREATE TABLE RequestItems (
     items_needed TEXT
 );
 -- 4. ItemMaster Table
-CREATE TABLE ItemMaster (
+CREATE TABLE IF NOT EXISTS ItemMaster (
     id SERIAL PRIMARY KEY,
     category VARCHAR(50),
     item_code VARCHAR(50),
@@ -176,7 +177,7 @@ VALUES (
         0
     );
 -- 5. Approvers Table
-CREATE TABLE Approvers (
+CREATE TABLE IF NOT EXISTS Approvers (
     id SERIAL PRIMARY KEY,
     department VARCHAR(100) NOT NULL,
     approver_name_1 VARCHAR(100) NOT NULL,
@@ -198,7 +199,7 @@ VALUES ('Admin', 'Super Approver', 'Admin Approver 2'),
         NULL
     );
 -- 6. Admins Table (ItemRequest_Admins)
-CREATE TABLE ItemRequest_Admins (
+CREATE TABLE IF NOT EXISTS ItemRequest_Admins (
     id SERIAL PRIMARY KEY,
     biometrics_id VARCHAR(50),
     role VARCHAR(50),
@@ -208,3 +209,14 @@ CREATE TABLE ItemRequest_Admins (
 INSERT INTO ItemRequest_Admins (biometrics_id, role, added_by)
 VALUES ('4', 'super_admin', 'System Init'),
     ('001', 'admin', 'System Init');
+-- 7. UniformAllowances Table (New)
+CREATE TABLE IF NOT EXISTS UniformAllowances (
+    id SERIAL PRIMARY KEY,
+    department VARCHAR(100) NOT NULL,
+    level VARCHAR(50) NOT NULL,
+    uniform_name VARCHAR(200) NOT NULL,
+    max_quantity INT NOT NULL,
+    issuance_type VARCHAR(20) NOT NULL,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE(department, level, uniform_name)
+);
